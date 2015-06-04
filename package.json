@@ -1,0 +1,19 @@
+{
+  "name": "karma-ts-preprocessor",
+  "version": "1.0.0",
+  "description": "karma-ts-preprocessor",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewjh/karma-ts-preprocessor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthewjh/karma-ts-preprocessor/issues"
+  },
+  "homepage": "https://github.com/matthewjh/karma-ts-preprocessor#readme"
+}
