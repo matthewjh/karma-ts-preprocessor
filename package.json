@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/matthewjh/karma-ts-preprocessor/issues"
   },
-  "homepage": "https://github.com/matthewjh/karma-ts-preprocessor#readme"
+  "homepage": "https://github.com/matthewjh/karma-ts-preprocessor#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }
