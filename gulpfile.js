@@ -1,10 +1,14 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
 
-var SOURCE_FILES_GLOB = 'src/**/*.ts';
+var SOURCE_FILES_GLOB = [
+	'src/**/*.ts',
+	'definitions/**/*.d.ts'
+];
 var BASE_TYPESCRIPT_COMPILER_CONFIG = {
 	module: 'amd',
-	noImplicitAny: true
+	noImplicitAny: true,
+	typescript: require('typescript')
 };
 
 gulp.task('default', [
