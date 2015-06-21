@@ -6,12 +6,19 @@ import {Log, TestLog} from 'util/log';
 let preprocessCalled: boolean;
 let preprocessArgs: any[];
 let preprocessorLog: Log;
+let testLog = new TestLog();
 
 beforeEach(() => {
 	preprocessorLog = null;
 	preprocessCalled = false;
 	preprocessArgs = [];
 });
+
+class KarmaLogger {
+	create(name: string) {
+		return testLog;
+	}
+}
 
 class TestPreprocessor implements Preprocessor {
 	constructor(log: Log) {
@@ -26,10 +33,8 @@ class TestPreprocessor implements Preprocessor {
 
 describe('getPreprocessorFactory', () => {
 	let preprocessorFactory: any;
-	let log;
 
 	beforeEach(() => {
-		log = new TestLog();
 		preprocessorFactory = getPreprocessorFactory(TestPreprocessor);
 	});
 
@@ -47,11 +52,11 @@ describe('getPreprocessorFactory', () => {
 		let preprocess;
 
 		beforeEach(() => {
-			preprocess = preprocessorFactory[1](log);
+			preprocess = preprocessorFactory[1](new KarmaLogger());
 		});
 
 		it('should pass through the logger instance to the Preprocessor ctor', () => {
-			expect(preprocessorLog).toBe(log);
+			expect(preprocessorLog).toBe(testLog);
 		});
 
 		it('should call through to TestPreprocessor#processFile', () => {
