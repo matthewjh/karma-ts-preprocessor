@@ -1,26 +1,7 @@
-import {TypeScriptPreprocessor} from 'ts-preprocessor';
-import {PreprocessorConstructor} from 'preprocessor';
+import {TypeScriptPreprocessor} from 'typescript-preprocessor';
+import {getPreprocessorFactory} from 'publisher';
 
-interface DIableFactory {
-	call(...args: any[]);
-
-	$inject?: string[];
-}
-
-function getPreprocessorFactory(PreprocessorCtor: PreprocessorConstructor): any {
-	var factory: DIableFactory = () => {
-		var preprocessor = new PreprocessorCtor();
-
-		return (content, file, done) => {
-			preprocessor.processFile(content, file, done);
-		};  
-	};
-
-	factory.$inject = [];
-
-	return ['factory', factory];
-}
-
+// TypeScript only allows you to export types, so here we export an object directly via module.exports
 declare var module: any;
 module.exports = {
 	'preprocessor:typescript': getPreprocessorFactory(TypeScriptPreprocessor)
