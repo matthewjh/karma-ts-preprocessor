@@ -7,6 +7,6 @@ export class TypeScriptPreprocessor implements Preprocessor {
 	}
 
 	processFile(content: string, file: File, done: Function) {
-		console.log(content);
+		this.log.info(`preprocessing: ${file} ---\n ${content}`);
 	}
 }
