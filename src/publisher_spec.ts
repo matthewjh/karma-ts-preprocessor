@@ -1,11 +1,11 @@
 import {getPreprocessorFactory} from 'publisher';
-import {PreprocessorConstructor, Preprocessor} from 'preprocessor';
+import {IPreprocessorConstructor, IPreprocessor} from 'preprocessor';
 import {File} from 'util/file';
-import {Log, TestLog} from 'util/log';
+import {ILog, TestLog} from 'util/log';
 
 let preprocessCalled: boolean;
 let preprocessArgs: any[];
-let preprocessorLog: Log;
+let preprocessorLog: ILog;
 let testLog = new TestLog();
 
 beforeEach(() => {
@@ -20,8 +20,8 @@ class KarmaLogger {
 	}
 }
 
-class TestPreprocessor implements Preprocessor {
-	constructor(log: Log) {
+class TestPreprocessor implements IPreprocessor {
+	constructor(log: ILog) {
 		preprocessorLog = log;
 	}
 

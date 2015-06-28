@@ -1,12 +1,12 @@
-import {Preprocessor} from 'preprocessor';
+import {IPreprocessor} from 'preprocessor';
 import {File} from 'util/file';
-import {Log} from 'util/log';
+import {ILog} from 'util/log';
 
 var sys = require('sys');
 var exec = require('child_process').exec;
 
-export class TypeScriptPreprocessor implements Preprocessor {
-	constructor(private log: Log) {
+export class TypeScriptPreprocessor implements IPreprocessor {
+	constructor(private log: ILog) {
 	}
 
 	processFile(content: string, file: File, done: Function) {

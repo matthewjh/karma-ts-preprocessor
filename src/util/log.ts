@@ -1,11 +1,13 @@
-export interface Log {
+export interface ILog {
 	debug(message: string);
 	info(message: string);
 	warn(message: string);
 	error(message: string);
 }
 
-export class TestLog implements Log {
+export class LogToken {}
+
+export class TestLog implements ILog {
 	private log: string[];
 
 	constructor() {

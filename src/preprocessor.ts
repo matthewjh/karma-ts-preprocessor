@@ -1,7 +1,7 @@
-export interface PreprocessorConstructor {
-	new(...args: any[]): Preprocessor;
+export interface IPreprocessorConstructor {
+	new(...args: any[]): IPreprocessor;
 }
 
-export interface Preprocessor {
+export interface IPreprocessor {
 	processFile(content: string, file: any, done: Function);
 }

@@ -1,4 +1,7 @@
-import {PreprocessorConstructor} from 'preprocessor';
+import {IPreprocessorConstructor} from 'preprocessor';
+import {LogToken, ILog} from 'util/log';
+import {configureContainerBuilder} from 'ioc';
+import * as typeioc from 'typeioc';
 
 interface DIableFactory {
 	call(...args: any[]);
@@ -11,10 +14,13 @@ interface DIableFactory {
 * return a valid karma preprocessor that calls the processFile method of the preprocessor
 * created through the ctor
 */
-export function getPreprocessorFactory(PreprocessorCtor: PreprocessorConstructor): any {
+export function getPreprocessorFactory(cb: typeioc.IContainerBuilder, PreprocessorCtor: IPreprocessorConstructor): any {
 	var factory: DIableFactory = (logger) => {
-		var log = logger.create('preprocessor.typescript');
-		var preprocessor = new PreprocessorCtor(log);
+		cb.register<ILog>(LogToken)
+			.as(() => logger.create('preprocessor.typescript'));
+
+		var container = cb.build();
+		var preprocessor = container.resolve(PreprocessorCtor);
 
 		return (content, file, done) => {
 			preprocessor.processFile(content, file, done);

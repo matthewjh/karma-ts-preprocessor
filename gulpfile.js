@@ -6,8 +6,10 @@ var replace = require('gulp-replace');
 
 var SOURCE_FILES_GLOB = [
 	'src/**/*.ts',
-	'definitions/**/*.d.ts'
+	'definitions/**/*.d.ts',
+	'node_modules/typeioc/d.ts/typeioc.d.ts'
 ];
+
 var BASE_TYPESCRIPT_COMPILER_CONFIG = {
 	noImplicitAny: true,
 	typescript: require('typescript')
