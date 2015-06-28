@@ -23,7 +23,9 @@ export function getPreprocessorFactory(cb: typeioc.IContainerBuilder, Preprocess
 		var preprocessor = container.resolve(PreprocessorCtor);
 
 		return (content, file, done) => {
-			preprocessor.processFile(content, file, done);
+			preprocessor.processFile(content, file, done).then((processedContents) => {
+				done(processedContents);
+			});
 		};
 	};
 

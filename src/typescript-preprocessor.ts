@@ -1,37 +1,26 @@
 import {IPreprocessor} from 'preprocessor';
 import {File} from 'util/file';
 import {ILog} from 'util/log';
-
-var sys = require('sys');
-var exec = require('child_process').exec;
+import {ICompiler} from 'compiler';
+import {Promise} from 'es6-promise';
 
 export class TypeScriptPreprocessor implements IPreprocessor {
-	constructor(private log: ILog) {
+	constructor(private log: ILog,
+				private compiler: ICompiler) {
 	}
 
-	processFile(content: string, file: File, done: Function) {
+	processFile(content: string, file: File): Promise<string> {
 		this.log.info(`preprocessing: ${file} ---\n ${content}`);
 
-		// var result = tsc.compile([file.path], 
-		// 	['--module', 'amd',
-		// 	 '--outDir', '.tsc'],
-		// 	(error) => {
-		// 		this.handleError(error);
-		// 	});
+		return this.compiler.compile(file.path).then((logs) => {
+			logs.forEach((log) => {
+				this.log.info(log);
+			});
 
-		// result.errors.forEach((error) => {
-		// 	this.handleError(error);
-		// });
-
-		var childProcess = exec('node_modules/typescript/tsc', (error, stdout, stderr) => {
-			this.log.info(stdout);
-
-			if (error !== null) {
-				this.log.error(error);
-			}
+			return null;
+		}, (error) => {
+			this.log.error(error);
 		});
-
-		done(null, content);
 	}
 
 	private handleError(error: any) {

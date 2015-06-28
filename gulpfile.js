@@ -13,7 +13,8 @@ var SOURCE_FILES_GLOB = [
 var ABSOLUTE_IMPORTS = [
 	'typeioc',
 	'sys',
-	'child_process'
+	'child_process',
+	'es6-promise'
 ];
 
 var BASE_TYPESCRIPT_COMPILER_CONFIG = {
@@ -35,7 +36,7 @@ gulp.task('clean-build-folder', function() {
 });
 
 gulp.task('make-cjs-imports-dot-relative', function() {
-	var matchRegex = /require\(\'([a-zA-Z_]+)/g;
+	var matchRegex = /require\(\'([a-zA-Z_\-]+)/g;
 
 	return gulp.src('built/**/*.js')
 		.pipe(replace(matchRegex, function(match) {
