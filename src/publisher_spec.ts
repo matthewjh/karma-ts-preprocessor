@@ -1,7 +1,7 @@
 import {getPreprocessorFactory} from 'publisher';
 import {IPreprocessorConstructor, IPreprocessor} from 'preprocessor';
 import {File} from 'util/file';
-import {ILog, TestLog} from 'util/log';
+import {ILog, TestLog, LogToken} from 'util/log';
 
 let preprocessCalled: boolean;
 let preprocessArgs: any[];
@@ -35,7 +35,17 @@ describe('getPreprocessorFactory', () => {
 	let preprocessorFactory: any;
 
 	beforeEach(() => {
-		preprocessorFactory = getPreprocessorFactory(TestPreprocessor);
+		var cb = typeioc.createBuilder();
+		cb.register<ILog>(TestLog)
+			.as(() => new TestLog());
+		cb.register<IPreprocessor>(TestPreprocessor)
+			.as((c) => {
+				return new TestPreprocessor(
+					c.resolve(TestLog)
+				);
+			});
+
+		preprocessorFactory = getPreprocessorFactory(cb, TestPreprocessor);
 	});
 
 	it('should be a factory in the correct format', () => {
