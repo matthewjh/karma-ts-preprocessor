@@ -5,6 +5,7 @@
 		"outDir": "built"
 	},
 	"files": [
-		"src/publish.ts"
+		"src/publish.ts",
+		"src/publish.test.ts"	
 	]
 }

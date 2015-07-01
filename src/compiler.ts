@@ -9,7 +9,7 @@ import childProcessModule = require('child_process');
 export class CommandLineCompiler implements Ktsp.Internal.ICompiler {
 	compile(filePath: string): Promise<string[]> {
 		var promise = new Promise((resolve, reject) => {
-			childProcessModule.exec('node_modules/.bin/tsc', (error, stdout, stderr) => {
+			childProcessModule.exec(`tsc ${filePath}`, (error, stdout, stderr) => {
 				resolve([stdout]);
 
 				if (error !== null) {

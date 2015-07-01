@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+  
+  <testsuite name="publish.test.js"
+             errors="1"
+             failures="0"
+             tests="1">
+    
+      
+      <testcase name="testAdd">
+        
+          <failure message="">
+            AssertionError: 2 == 3
+    at Object.equals (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/lib/types.js:83:39)
+    at Object.testAdd (/Users/matt/Personal/karma-ts-preprocessor/built/publish.test.js:3:10)
+    at Object.&lt;anonymous&gt; (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/lib/core.js:236:16)
+    at /Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/lib/core.js:236:16
+    at Object.exports.runTest (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/lib/core.js:70:9)
+    at /Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/lib/core.js:118:25
+    at /Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/deps/async.js:513:13
+    at iterate (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/deps/async.js:123:13)
+    at async.forEachSeries (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/deps/async.js:139:9)
+    at _concat (/Users/matt/Personal/karma-ts-preprocessor/node_modules/gulp-nodeunit/node_modules/nodeunit/deps/async.js:512:9)
+          </failure>
+        
+      </testcase>
+    
+  </testsuite>
+

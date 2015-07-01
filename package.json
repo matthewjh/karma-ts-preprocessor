@@ -19,11 +19,13 @@
   "devDependencies": {
     "es6-promise": "^2.3.0",
     "gulp": "^3.9.0",
+    "gulp-nodeunit": "0.0.5",
     "gulp-regex-replace": "^0.2.3",
     "gulp-replace": "^0.5.3",
     "gulp-rimraf": "^0.1.1",
     "gulp-typescript": "^2.7.6",
     "lodash": "^3.9.3",
+    "nodeunit": "^0.9.1",
     "sinon": "^1.15.4",
     "typeioc": "^1.2.8",
     "typescript": "^1.5.0-beta"
