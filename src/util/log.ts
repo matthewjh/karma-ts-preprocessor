@@ -3,10 +3,10 @@
 export class LogToken {}
 
 export class TestLog implements Ktsp.Internal.ILog {
-	private log: string[];
+	private _log: string[];
 
 	constructor() {
-		this.log = [];
+		this._log = [];
 	}
 
 	debug(message: string) {
@@ -26,6 +26,6 @@ export class TestLog implements Ktsp.Internal.ILog {
 	}
 
 	private logMessage(type: string, message: string) {
-		this.log.push(`${type}: ${message}`);
+		this._log.push(`${type}: ${message}`);
 	}
 }

@@ -1,4 +1,4 @@
-// <reference path="../node_modules/typeioc/d.ts/typeioc.d.ts"/>
+/// <reference path="../node_modules/typeioc/d.ts/typeioc.d.ts"/>
 /// <reference path="../definitions/ktsp.internal.d.ts"/>
 
 import preprocessorModule = require('./preprocessor');
