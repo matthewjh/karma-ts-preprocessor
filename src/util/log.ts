@@ -1,13 +1,8 @@
-export interface ILog {
-	debug(message: string);
-	info(message: string);
-	warn(message: string);
-	error(message: string);
-}
+/// <reference path="../../definitions/ktsp.internal.d.ts"/>
 
 export class LogToken {}
 
-export class TestLog implements ILog {
+export class TestLog implements Ktsp.Internal.ILog {
 	private log: string[];
 
 	constructor() {

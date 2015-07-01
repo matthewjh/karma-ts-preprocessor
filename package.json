@@ -24,6 +24,7 @@
     "gulp-rimraf": "^0.1.1",
     "gulp-typescript": "^2.7.6",
     "lodash": "^3.9.3",
+    "sinon": "^1.15.4",
     "typeioc": "^1.2.8",
     "typescript": "^1.5.0-beta"
   },

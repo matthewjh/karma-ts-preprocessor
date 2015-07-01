@@ -1,18 +1,15 @@
-import {Promise} from 'es6-promise';
-
-export interface ICompiler {
-	compile(filePath: string): Promise<string[]>;
-}
+/// <reference path="../definitions/es6-promise.d.ts"/>
+/// <reference path="../definitions/node.d.ts"/>
+/// <reference path="../definitions/ktsp.internal.d.ts"/>
 
 export class CompilerToken {}
 
-var sys = require('sys');
-var exec = require('child_process').exec;
+import childProcessModule = require('child_process');
 
-export class CommandLineCompiler implements ICompiler {
+export class CommandLineCompiler implements Ktsp.Internal.ICompiler {
 	compile(filePath: string): Promise<string[]> {
 		var promise = new Promise((resolve, reject) => {
-			exec('node_modules/.bin/tsc', (error, stdout, stderr) => {
+			childProcessModule.exec('node_modules/.bin/tsc', (error, stdout, stderr) => {
 				resolve([stdout]);
 
 				if (error !== null) {

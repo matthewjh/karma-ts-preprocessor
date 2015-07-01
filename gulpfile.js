@@ -14,12 +14,14 @@ var ABSOLUTE_IMPORTS = [
 	'typeioc',
 	'sys',
 	'child_process',
-	'es6-promise'
+	'es6-promise',
+	'sinon'
 ];
 
 var BASE_TYPESCRIPT_COMPILER_CONFIG = {
 	noImplicitAny: true,
-	typescript: require('typescript')
+	typescript: require('typescript'),
+	rootDir: './'
 };
 
 gulp.task('default', ['package-compile'], function() {
@@ -36,14 +38,26 @@ gulp.task('clean-build-folder', function() {
 });
 
 gulp.task('make-cjs-imports-dot-relative', function() {
-	var matchRegex = /require\(\'([a-zA-Z_\-]+)/g;
+	var matchRegex = /require\(\'([\/0-9a-zA-Z_\-]+)/g;
 
 	return gulp.src('built/**/*.js')
-		.pipe(replace(matchRegex, function(match) {
+		.pipe(replace(matchRegex, function(match, a) {
 			var moduleName = match.substr(match.indexOf('\'') + 1);
 
-			if (ABSOLUTE_IMPORTS.indexOf(moduleName) === -1) {
-				return match.replace(matchRegex, 'require(\'./$1');
+			if (false && ABSOLUTE_IMPORTS.indexOf(moduleName) === -1) {
+				var slashes = moduleName.match(/\//g);
+				var depth = slashes ? slashes.length : 0;
+				var prefix = '';
+
+				if (depth === 0) {
+					prefix = './';
+				} else {
+					for (var i = 0; i < depth; i++) {
+						prefix += '../';
+					}
+				}
+
+				return match.replace(matchRegex, 'require(\'' + prefix + '$1');
 			} else {
 				return match;
 			}
