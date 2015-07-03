@@ -16,15 +16,13 @@ export class Preprocessor implements Ktsp.Internal.IPreprocessor {
 		this._compiler = compiler;
 	}
 
-	processFile(content: string, file: Ktsp.Internal.IFile): Promise<string> {
+	processFile(content: string, file: Ktsp.Internal.IFile): Promise<void> {
 		this._log.info(`preprocessing: ${file} ---\n ${content}`);
 
 		return this._compiler.compile(file.path).then((logs) => {
 			logs.forEach((log) => {
 				this._log.info(log);
 			});
-
-			return null;
 		}, (error) => {
 			this._log.error(error);
 			

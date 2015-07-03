@@ -39,6 +39,8 @@ export function testProcessFileWhenCompilerCompilePromiseIsResolved (test: nodeu
 	mockCompiler.compile.withArgs(file.path).returns(compilerCompilePromise);
 
 	preprocessor.processFile(contents, file).then(() => {
+    test.ok(mockLog.info.withArgs(logs[0]).called);
+    test.ok(mockLog.info.withArgs(logs[1]).called);
 		test.done();
 	});
 }
@@ -51,7 +53,8 @@ export function testProcessFileWhenCompilerCompilePromiseIsRejected (test: nodeu
 	mockCompiler.compile.withArgs(file.path).returns(compilerCompilePromise);
 
 	preprocessor.processFile(contents, file).catch((actualError) => {
-		test.equal(error, actualError);
+    test.ok(mockLog.error.withArgs(error).called);
+    test.equal(error, actualError);
 		test.done();
 	});
 }
