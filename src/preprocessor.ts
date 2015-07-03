@@ -4,6 +4,7 @@
 import promiseModule = require('es6-promise');
 import logModule = require('./util/log');
 import compilerModule = require('./compiler');
+import testUtilModule = require('./util/test');
 
 export class Preprocessor implements Ktsp.Internal.IPreprocessor {
 	private _log: Ktsp.Internal.ILog;
@@ -31,3 +32,5 @@ export class Preprocessor implements Ktsp.Internal.IPreprocessor {
 		});
 	}
 }
+
+export var getMockPreprocessor = testUtilModule.getMockObjectGetter<Ktsp.Internal.IPreprocessor>(Preprocessor);

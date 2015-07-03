@@ -1,5 +1,7 @@
 /// <reference path="../../definitions/ktsp.internal.d.ts"/>
 
+import testUtilModule = require('./test');
+
 export class LogToken {}
 
 export class TestLog implements Ktsp.Internal.ILog {
@@ -29,3 +31,5 @@ export class TestLog implements Ktsp.Internal.ILog {
 		this.log.push(`${type}: ${message}`);
 	}
 }
+
+export var getLogMock = testUtilModule.getMockObjectGetter<Ktsp.Internal.ILog>(TestLog);

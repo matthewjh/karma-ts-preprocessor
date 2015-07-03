@@ -3,6 +3,6 @@
 import nodeunit = require('nodeunit');
 
 export function testAdd (test: nodeunit.Test) {
-	test.equals(2, 3);
+	test.equals(2, 2);
 	test.done();
 }

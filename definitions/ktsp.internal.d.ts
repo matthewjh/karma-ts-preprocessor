@@ -13,7 +13,7 @@ declare module Ktsp.Internal {
 	}	
 	
 	interface IPreprocessor {
-		processFile(content: string, file: any): Promise<string>;
+		processFile(content: string, file: IFile): Promise<string>;
 	}
 	
 	interface ICompiler {
@@ -22,10 +22,6 @@ declare module Ktsp.Internal {
 	
 	interface IPreprocessorConstructor {
 		new(...args: any[]): IPreprocessor;
-	}
-
-	interface IPreprocessor {
-		processFile(content: string, file: any): Promise<string>;
 	}
 }
 

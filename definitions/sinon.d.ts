@@ -3,6 +3,10 @@
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface Function {
+    withArgs(...args: any[]): Sinon.SinonStub;    
+}
+
 declare module Sinon {
     interface SinonSpyCallApi {
         // Properties

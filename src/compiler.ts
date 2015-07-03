@@ -5,6 +5,7 @@
 export class CompilerToken {}
 
 import childProcessModule = require('child_process');
+import testUtilModule = require('./util/test');
 
 export class CommandLineCompiler implements Ktsp.Internal.ICompiler {
 	compile(filePath: string): Promise<string[]> {
@@ -21,3 +22,5 @@ export class CommandLineCompiler implements Ktsp.Internal.ICompiler {
 		return promise;
 	}
 }
+
+export var getMockCompiler = testUtilModule.getMockObjectGetter<Ktsp.Internal.ICompiler>(CommandLineCompiler);
