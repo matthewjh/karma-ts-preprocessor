@@ -10,5 +10,5 @@ var cb = typeiocModule.createBuilder();
 iocModule.configureContainerBuilder(cb);
 
 export = {
-	'preprocessor:typescript': publisherModule.getPreprocessorFactory(cb, preprocessorModule.Preprocessor)
+  'preprocessor:typescript': publisherModule.getPreprocessorFactory(cb, preprocessorModule.Preprocessor)
 };

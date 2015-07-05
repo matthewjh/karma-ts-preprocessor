@@ -17,7 +17,7 @@ export function testFormatArguments(test: nodeunit.Test) {
   };
   var formattedArgs = '--arg1 arg1-value --arg2 arg2-value';
   var result = commandLineArgumentsFormatter.formatArguments(args);
-   
+
   test.equal(formattedArgs, result);
   test.done();
 }

@@ -10,23 +10,23 @@ import logModule = require('./util/log');
 * created through the ctor
 */
 export function getPreprocessorFactory(cb: Typeioc.IContainerBuilder, PreprocessorCtor: Ktsp.Internal.IPreprocessorConstructor): any {
-	var factory = (logger) => {
-		cb.register<Ktsp.Internal.ILog>(logModule.LogToken)
-			.as(() => logger.create('preprocessor.typescript'));
+  var factory = (logger) => {
+    cb.register<Ktsp.Internal.ILog>(logModule.LogToken)
+      .as(() => logger.create('preprocessor.typescript'));
 
-		var container = cb.build();
-		var preprocessor = container.resolve(PreprocessorCtor);
+    var container = cb.build();
+    var preprocessor = container.resolve(PreprocessorCtor);
 
-		return (content, file, done) => {
-			preprocessor.processFile(content, file, done).then((processedContents) => {
-				done(processedContents);
-			}, () => {
-				done(null);
-			});
-		};
-	};
+    return (content, file, done) => {
+      preprocessor.processFile(content, file, done).then((processedContents) => {
+        done(processedContents);
+      }, () => {
+        done(null);
+      });
+    };
+  };
 
-	factory.$inject = ['logger'];
+  factory.$inject = ['logger'];
 
-	return ['factory', factory];
+  return ['factory', factory];
 }

@@ -7,28 +7,28 @@ import compilerModule = require('./compiler');
 import testUtilModule = require('./util/test');
 
 export class Preprocessor implements Ktsp.Internal.IPreprocessor {
-	private _log: Ktsp.Internal.ILog;
-	private _compiler: Ktsp.Internal.ICompiler;
-	
-	constructor(log: Ktsp.Internal.ILog,
+  private _log: Ktsp.Internal.ILog;
+  private _compiler: Ktsp.Internal.ICompiler;
+
+  constructor(log: Ktsp.Internal.ILog,
 				compiler: Ktsp.Internal.ICompiler) {
-		this._log = log;
-		this._compiler = compiler;
-	}
+    this._log = log;
+    this._compiler = compiler;
+  }
 
-	processFile(content: string, file: Ktsp.Internal.IFile): Promise<void> {
-		this._log.info(`preprocessing: ${file} ---\n ${content}`);
+  processFile(content: string, file: Ktsp.Internal.IFile): Promise<void> {
+    this._log.info(`preprocessing: ${file} ---\n ${content}`);
 
-		return this._compiler.compile(file.path).then((logs) => {
-			logs.forEach((log) => {
-				this._log.info(log);
-			});
-		}, (error) => {
-			this._log.error(error);
-			
-			return Promise.reject(error);
-		});
-	}
+    return this._compiler.compile(file.path).then((logs) => {
+      logs.forEach((log) => {
+        this._log.info(log);
+      });
+    }, (error) => {
+      this._log.error(error);
+
+      return Promise.reject(error);
+    });
+  }
 }
 
 export var getMockPreprocessor = testUtilModule.getMockObjectGetter<Ktsp.Internal.IPreprocessor>(Preprocessor);

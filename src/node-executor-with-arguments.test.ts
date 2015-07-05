@@ -12,42 +12,42 @@ var commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandL
 var command: string;
 var args: any;
 
-export function setUp (done: nodeunit.ICallbackFunction) {
+export function setUp(done: nodeunit.ICallbackFunction) {
   command = 'cmd';
   args = {
     arg1: 'arg1-value',
     arg2: 'arg2-value'
   };
-  
+
   nodeExecutor = nodeExecutorModule.getMockNodeExecutor();
   commandLineArgumentsFormatter = commandLineArgumentsFormatterModule.getMockCommandLineArgumentsFormatter();
- 
-	nodeExecutorWithArguments = new nodeExecutorWithArgumentsModule.NodeExecutorWithArguments(
+
+  nodeExecutorWithArguments = new nodeExecutorWithArgumentsModule.NodeExecutorWithArguments(
     nodeExecutor,
     commandLineArgumentsFormatter
-  );
+    );
 
-	done();
+  done();
 }
 
 export function testExecuteWhenPromiseIsResolved(test: nodeunit.Test) {
   var resolveValue: any = {};
-  
+
   commandLineArgumentsFormatter.formatArguments.withArgs(args).returns('formatted-args');
   nodeExecutor.execute.withArgs('cmd formatted-args').returns(Promise.resolve(resolveValue));
-  
+
   nodeExecutorWithArguments.execute(command, args).then((actualResolveValue) => {
     test.equal(resolveValue, actualResolveValue);
     test.done();
   });
 }
 
-export function testExecuteWhenPromiseIsRejected(test: nodeunit.Test) {  
+export function testExecuteWhenPromiseIsRejected(test: nodeunit.Test) {
   var rejectValue: any = {};
-  
+
   commandLineArgumentsFormatter.formatArguments.withArgs(args).returns('formatted-args');
   nodeExecutor.execute.withArgs('cmd formatted-args').returns(Promise.reject(rejectValue));
-  
+
   nodeExecutorWithArguments.execute(command, args).catch((actualRejectValue) => {
     test.equal(rejectValue, actualRejectValue);
     test.done();

@@ -8,24 +8,24 @@ import nodeExecutorModule = require('./node-executor');
 import commandLineArgumentsFormatterModule = require('./command-line-arguments-formatter');
 
 export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
-	cb.register<Ktsp.Internal.IPreprocessor>(preprocessorModule.Preprocessor)
-		.as((c) => {
-			return new preprocessorModule.Preprocessor(
-				c.resolve(logModule.LogToken),
-				c.resolve(compilerModule.CompilerToken)
-			);
-		});
+  cb.register<Ktsp.Internal.IPreprocessor>(preprocessorModule.Preprocessor)
+    .as((c) => {
+      return new preprocessorModule.Preprocessor(
+        c.resolve(logModule.LogToken),
+        c.resolve(compilerModule.CompilerToken)
+       );
+    });
 
-	cb.register<Ktsp.Internal.ICompiler>(compilerModule.CompilerToken)
-		.as((c) => {
+  cb.register<Ktsp.Internal.ICompiler>(compilerModule.CompilerToken)
+    .as((c) => {
       return new compilerModule.CommandLineCompiler(
         c.resolve(nodeExecutorModule.NodeExecutorToken)
       );
     });
-    
+
   cb.register<Ktsp.Internal.INodeExecutor>(nodeExecutorModule.NodeExecutorToken)
     .as(() => new nodeExecutorModule.NodeExecutor());
-    
+
   cb.register<commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter>(commandLineArgumentsFormatterModule.CommandLineArgumentsFormatterToken)
     .as(() => new commandLineArgumentsFormatterModule.CommandLineArgumentsFormatter());
 }
