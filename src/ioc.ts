@@ -16,7 +16,7 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
        );
     });
 
-  cb.register<Ktsp.Internal.ICompiler>(compilerModule.CompilerToken)
+  cb.register<compilerModule.ICompiler>(compilerModule.CompilerToken)
     .as((c) => {
       return new compilerModule.CommandLineCompiler(
         c.resolve(nodeExecutorModule.NodeExecutorToken)

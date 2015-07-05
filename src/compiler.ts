@@ -4,21 +4,25 @@
 
 export class CompilerToken { }
 
+export interface ICompiler {
+  compile(filePath: string, args: any): Promise<string[]>;
+}
+
 import testUtilModule = require('./util/test');
-import nodeExecutorModule = require('./node-executor');
+import nodeExecutorWithArgumentsModule = require('./node-executor-with-arguments');
 
-export class CommandLineCompiler implements Ktsp.Internal.ICompiler {
-  private _nodeExecutor: Ktsp.Internal.INodeExecutor;
+export class CommandLineCompiler implements ICompiler {
+  private _nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments;
 
-  constructor(nodeExecutor: Ktsp.Internal.INodeExecutor) {
-    this._nodeExecutor = nodeExecutor;
+  constructor(nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments) {
+    this._nodeExecutorWithArguments = nodeExecutorWithArguments;
   }
 
-  compile(filePath: string): Promise<string[]> {
-    var promise = this._nodeExecutor.execute(`tsc ${filePath}`);
+  compile(filePath: string, args: any): Promise<string[]> {
+    var promise = this._nodeExecutorWithArguments.execute(`tsc ${filePath}`, args);
 
     return promise;
   }
 }
 
-export var getMockCompiler = testUtilModule.getMockObjectGetter<Ktsp.Internal.ICompiler>(CommandLineCompiler);
+export var getMockCompiler = testUtilModule.getMockObjectGetter<ICompiler>(CommandLineCompiler);

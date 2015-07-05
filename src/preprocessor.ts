@@ -8,10 +8,10 @@ import testUtilModule = require('./util/test');
 
 export class Preprocessor implements Ktsp.Internal.IPreprocessor {
   private _log: Ktsp.Internal.ILog;
-  private _compiler: Ktsp.Internal.ICompiler;
+  private _compiler: compilerModule.ICompiler;
 
   constructor(log: Ktsp.Internal.ILog,
-				compiler: Ktsp.Internal.ICompiler) {
+				compiler: compilerModule.ICompiler) {
     this._log = log;
     this._compiler = compiler;
   }
@@ -19,7 +19,7 @@ export class Preprocessor implements Ktsp.Internal.IPreprocessor {
   processFile(content: string, file: Ktsp.Internal.IFile): Promise<void> {
     this._log.info(`preprocessing: ${file} ---\n ${content}`);
 
-    return this._compiler.compile(file.path).then((logs) => {
+    return this._compiler.compile(file.path, {}).then((logs) => {
       logs.forEach((log) => {
         this._log.info(log);
       });

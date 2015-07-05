@@ -7,7 +7,7 @@ import compilerModule = require('./compiler');
 import logModule = require('./util/log');
 
 var preprocessor: Ktsp.Internal.IPreprocessor;
-var mockCompiler: Ktsp.Internal.ICompiler;
+var mockCompiler: compilerModule.ICompiler;
 var mockLog: Ktsp.Internal.ILog;
 
 var logs: string[] = ['log1', 'log2'];

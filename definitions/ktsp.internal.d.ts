@@ -15,11 +15,7 @@ declare module Ktsp.Internal {
 	interface IPreprocessor {
 		processFile(content: string, file: IFile): Promise<void>;
 	}
-	
-	interface ICompiler {
-		compile(filePath: string): Promise<string[]>;
-	}
-	
+
 	interface IPreprocessorConstructor {
 		new(...args: any[]): IPreprocessor;
 	}
