@@ -1,15 +1,15 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "ES5",
-		"outDir": "built"
-	},
-	"files": [
-		"src/publish.ts",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES5",
+    "outDir": "built"
+  },
+  "files": [
+    "src/publish.ts",
     "src/compiler.test.ts",
-		"src/publish.test.ts",
-		"src/preprocessor.test.ts",
+    "src/publish.test.ts",
+    "src/preprocessor.test.ts",
     "src/command-line-arguments-formatter.test.ts",
     "src/node-executor-with-arguments.test.ts"
-	]
+  ]
 }
