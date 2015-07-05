@@ -9,6 +9,6 @@ import iocModule = require('./ioc');
 var cb = typeiocModule.createBuilder();
 iocModule.configureContainerBuilder(cb);
 
-module.exports = {
+export = {
 	'preprocessor:typescript': publisherModule.getPreprocessorFactory(cb, preprocessorModule.Preprocessor)
 };

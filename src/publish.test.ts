@@ -1,8 +1,9 @@
 /// <reference path="../definitions/nodeunit.d.ts"/>
 
 import nodeunit = require('nodeunit');
+import publishModule = require('./publish');
 
-export function testAdd (test: nodeunit.Test) {
-	test.equals(2, 2);
-	test.done();
+export function testExport (test: nodeunit.Test) {
+  test.ok(publishModule['preprocessor:typescript']);
+  test.done();
 }

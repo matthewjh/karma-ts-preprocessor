@@ -32,7 +32,7 @@ export function setUp (done: nodeunit.ICallbackFunction) {
 	done();
 }
 
-export function testProcessFileWhenCompilerCompilePromiseIsResolved (test: nodeunit.Test) {
+export function test_process_file_when_compiler_compile_promise_is_resolved(test: nodeunit.Test) {
 	var compilerCompilePromise: Promise<string[]>;
 	
 	compilerCompilePromise = Promise.resolve(logs);
@@ -45,7 +45,7 @@ export function testProcessFileWhenCompilerCompilePromiseIsResolved (test: nodeu
 	});
 }
 
-export function testProcessFileWhenCompilerCompilePromiseIsRejected (test: nodeunit.Test) {
+export function test_process_file_when_compiler_compile_promise_is_rejected(test: nodeunit.Test) {
 	var error: any = {};
 	var compilerCompilePromise: Promise<string[]>;
 	

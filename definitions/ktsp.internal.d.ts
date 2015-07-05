@@ -23,6 +23,10 @@ declare module Ktsp.Internal {
 	interface IPreprocessorConstructor {
 		new(...args: any[]): IPreprocessor;
 	}
+  
+  interface INodeExecutor {
+    execute(command: string): Promise<string[]>;
+  }
 }
 
 interface Function {

@@ -7,6 +7,8 @@
 	"files": [
 		"src/publish.ts",
 		"src/publish.test.ts",
-		"src/preprocessor.test.ts"	
+		"src/preprocessor.test.ts",
+    "src/command-line-arguments-formatter.test.ts",
+    "src/node-executor-with-arguments.test.ts"
 	]
 }
