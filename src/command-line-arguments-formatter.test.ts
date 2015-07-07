@@ -5,20 +5,23 @@ import commandLineArgumentsFormatterModule = require('./command-line-arguments-f
 
 var commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter;
 
-export function setUp(done: nodeunit.ICallbackFunction) {
-  commandLineArgumentsFormatter = new commandLineArgumentsFormatterModule.CommandLineArgumentsFormatter();
-  done();
-}
-
-export function testFormatArguments(test: nodeunit.Test) {
-  var args = {
-    arg1: 'arg1-value',
-    arg2: 'arg2-value'
-  };
-  var formattedArgs = '--arg1 arg1-value --arg2 arg2-value';
-  var result = commandLineArgumentsFormatter.formatArguments(args);
-
-  test.equal(formattedArgs, result);
-  test.done();
-}
-
+export = {
+  setUp: function(done: nodeunit.ICallbackFunction) {
+    commandLineArgumentsFormatter = new commandLineArgumentsFormatterModule.CommandLineArgumentsFormatter();
+    done();
+  },
+  
+  'formatArguments': {
+    'it should correctly format arguments': function(test: nodeunit.Test) {
+      var args = {
+        arg1: 'arg1-value',
+        arg2: 'arg2-value'
+      };
+      var formattedArgs = '--arg1 arg1-value --arg2 arg2-value';
+      var result = commandLineArgumentsFormatter.formatArguments(args);
+    
+      test.equal(formattedArgs, result);
+      test.done();
+    }
+  }
+};

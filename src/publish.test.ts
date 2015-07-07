@@ -3,7 +3,9 @@
 import nodeunit = require('nodeunit');
 import publishModule = require('./publish');
 
-export function testExport(test: nodeunit.Test) {
-  test.ok(publishModule['preprocessor:typescript']);
-  test.done();
-}
+export = {
+  'the karma export should be present': function(test: nodeunit.Test) {
+    test.ok(publishModule['preprocessor:typescript']);
+    test.done();
+  }
+};
