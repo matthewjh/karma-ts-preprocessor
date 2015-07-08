@@ -18,20 +18,20 @@ export class CommandLineArgumentsFormatter implements ICommandLineArgumentsForma
     return str.trim();
   }
   
-  private _getArgumentString(key: any, value: any): string {
+  private _getArgumentString(argName: any, argValue: any): string {
     var argumentString = '';
     var isBooleanArgument = false;
     
-    if (value === true || value === false) {
+    if (argValue === true || argValue === false) {
       isBooleanArgument = true;    
     }
     
     if (isBooleanArgument) {
-      if (value) {
-        argumentString = `--${key}`;
+      if (argValue) {
+        argumentString = `--${argName}`;
       }
     } else {
-      argumentString = `--${key} ${value}`;
+      argumentString = `--${argName} ${argValue}`;
     }
     
     return argumentString;
