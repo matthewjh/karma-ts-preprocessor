@@ -21,7 +21,7 @@ export class NodeExecutorWithArguments implements INodeExecutorWithArguments {
 
   execute(command: string, args: any): Promise<string[]> {
     var formattedArgs = this._commandLineArgumentsFormatter.formatArguments(args);
-
+    
     return this._nodeExecutor.execute(`${command} ${formattedArgs}`);
   }
 }
