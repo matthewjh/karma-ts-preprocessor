@@ -15,9 +15,11 @@ export = {
     'it should correctly format arguments': function(test: nodeunit.Test) {
       var args = {
         arg1: 'arg1-value',
-        arg2: 'arg2-value'
+        arg2: 'arg2-value',
+        boolArg: true,
+        boolArg2: false
       };
-      var formattedArgs = '--arg1 arg1-value --arg2 arg2-value';
+      var formattedArgs = '--arg1 arg1-value --arg2 arg2-value --boolArg';
       var result = commandLineArgumentsFormatter.formatArguments(args);
     
       test.equal(formattedArgs, result);

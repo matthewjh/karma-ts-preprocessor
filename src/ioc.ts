@@ -12,7 +12,8 @@ class DefaultCompilerOptionsToken {}
 
 var defaultCompilerOptions = {
   outDir: 'built',
-  module: 'amd'
+  module: 'amd',
+  sourceMap: true
 };
 
 export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {

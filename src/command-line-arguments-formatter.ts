@@ -12,10 +12,30 @@ export class CommandLineArgumentsFormatter implements ICommandLineArgumentsForma
     
     Object.keys(args).forEach((key) => {
       var value = args[key];
-      str += `--${key} ${value} `;
+      str += `${this._getArgumentString(key, value)} `;
     });
+   
     
     return str.trim();
+  }
+  
+  _getArgumentString(key: any, value: any): string {
+    var argumentString = '';
+    var isBooleanArgument = false;
+    
+    if (value === true || value === false) {
+      isBooleanArgument = true;    
+    }
+    
+    if (isBooleanArgument) {
+      if (value) {
+        argumentString = `--${key}`;
+      }
+    } else {
+      argumentString = `--${key} ${value}`;
+    }
+    
+    return argumentString;
   }
 }
 
