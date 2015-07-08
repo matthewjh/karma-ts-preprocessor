@@ -14,12 +14,11 @@ export class CommandLineArgumentsFormatter implements ICommandLineArgumentsForma
       var value = args[key];
       str += `${this._getArgumentString(key, value)} `;
     });
-   
     
     return str.trim();
   }
   
-  _getArgumentString(key: any, value: any): string {
+  private _getArgumentString(key: any, value: any): string {
     var argumentString = '';
     var isBooleanArgument = false;
     
