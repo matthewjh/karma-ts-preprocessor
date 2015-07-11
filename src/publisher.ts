@@ -1,5 +1,5 @@
 import {IPreprocessor} from './preprocessor';
-import {LogToken} from './util/log';
+import {ILog, LogToken} from './util/log';
 
 interface IPreprocessorStatic {
   new(...args: any[]): IPreprocessor;
@@ -12,7 +12,7 @@ interface IPreprocessorStatic {
 */
 export function getPreprocessorFactory(cb: Typeioc.IContainerBuilder, preprocessorStatic: IPreprocessorStatic): any {
   var factory = (logger) => {
-    cb.register<Ktsp.Internal.ILog>(LogToken)
+    cb.register<ILog>(LogToken)
       .as(() => logger.create('preprocessor.typescript'));
 
     var container = cb.build();
@@ -21,7 +21,9 @@ export function getPreprocessorFactory(cb: Typeioc.IContainerBuilder, preprocess
     return (content, file, done) => {
       preprocessor.processFile(content, file).then((processedContents) => {
         done(processedContents);
-      }, () => {
+      }, (error) => {
+        var logger: ILog = container.resolve(LogToken);
+        logger.error(error);
         done(null);
       });
     };

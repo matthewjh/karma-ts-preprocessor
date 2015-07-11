@@ -1,10 +1,10 @@
 import * as nodeunit from 'nodeunit';
-import {getMockNodeExecutor} from './node-executor';
+import {INodeExecutor, getMockNodeExecutor} from './node-executor';
 import {INodeExecutorWithArguments, NodeExecutorWithArguments} from './node-executor-with-arguments';
 import {ICommandLineArgumentsFormatter, getMockCommandLineArgumentsFormatter} from './command-line-arguments-formatter';
 
 var nodeExecutorWithArguments: INodeExecutorWithArguments;
-var nodeExecutor: Ktsp.Internal.INodeExecutor;
+var nodeExecutor: INodeExecutor;
 var commandLineArgumentsFormatter: ICommandLineArgumentsFormatter;
 
 var command: string;

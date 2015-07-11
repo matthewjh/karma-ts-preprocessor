@@ -1,8 +1,15 @@
 import {getMockObjectGetter} from './test';
 
+export interface ILog {
+  debug(message: string);
+  info(message: string);
+  warn(message: string);
+  error(message: string);
+}
+
 export class LogToken { }
 
-export class TestLog implements Ktsp.Internal.ILog {
+export class TestLog implements ILog {
   public log: string[];
 
   constructor() {
@@ -30,4 +37,4 @@ export class TestLog implements Ktsp.Internal.ILog {
   }
 }
 
-export var getLogMock = getMockObjectGetter<Ktsp.Internal.ILog>(TestLog);
+export var getLogMock = getMockObjectGetter<ILog>(TestLog);

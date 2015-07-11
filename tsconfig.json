@@ -5,6 +5,7 @@
     "outDir": "built"
   },
   "files": [
+    "definitions/node-global.d.ts",
     "definitions/es6-promise.d.ts",
     "definitions/node.d.ts",
     "definitions/nodeunit.d.ts",

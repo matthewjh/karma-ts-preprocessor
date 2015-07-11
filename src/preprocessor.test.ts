@@ -2,11 +2,15 @@ import * as nodeunit from 'nodeunit';
 import * as sinon from 'sinon';
 import {IPreprocessor, Preprocessor} from './preprocessor';
 import {ICompiler, getMockCompiler} from './compiler';
-import {getLogMock} from './util/log';
+import {IPathResolver, getMockPathResolver} from './path-resolver';
+import {IFileReader, getMockFileReader} from './file-reader';
+import {ILog, getLogMock} from './util/log';
 
 var preprocessor: IPreprocessor;
 var mockCompiler: ICompiler;
-var mockLog: Ktsp.Internal.ILog;
+var mockLog: ILog;
+var mockPathResolver: IPathResolver;
+var mockFileReader: IFileReader;
 
 var compilerCompilePromise: Promise<string[]>;
 var logs: string[] = ['log1', 'log2'];
@@ -18,6 +22,8 @@ export = {
   setUp: function(done: nodeunit.ICallbackFunction) {
     mockLog = getLogMock();
     mockCompiler = getMockCompiler();
+    mockPathResolver = getMockPathResolver();
+    mockFileReader = getMockFileReader();
   
     file = {
       path: 'some-file-path'
@@ -31,6 +37,8 @@ export = {
   
     preprocessor = new Preprocessor(
       mockLog,
+      mockPathResolver,
+      mockFileReader,
       mockCompiler,
       defaultCompilerOptions
     );
@@ -81,7 +89,7 @@ export = {
       }, 
     },
     
-    'when the compiler.compile promise is rejected, it should process the file': function(test: nodeunit.Test) {
+    'when the compiler.compile promise is rejected, it should log the error': function(test: nodeunit.Test) {
       var error: any = {};
     
       compilerCompilePromise = Promise.reject(error);

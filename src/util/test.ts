@@ -1,6 +1,5 @@
 import * as sinon from 'sinon';
 
-
 interface Static<T> {
   new (...args: any[]): T;
   prototype: any;

@@ -1,4 +1,4 @@
-/// <reference path="../definitions/es6-promise.d.ts"/>
+import {INodeExecutor} from './node-executor';
 import {getMockObjectGetter} from './util/test';
 import {ICommandLineArgumentsFormatter} from './command-line-arguments-formatter';
 
@@ -9,10 +9,10 @@ export interface INodeExecutorWithArguments {
 }
 
 export class NodeExecutorWithArguments implements INodeExecutorWithArguments {
-  private _nodeExecutor: Ktsp.Internal.INodeExecutor;
+  private _nodeExecutor: INodeExecutor;
   private _commandLineArgumentsFormatter: ICommandLineArgumentsFormatter;
 
-  constructor(nodeExecutor: Ktsp.Internal.INodeExecutor,
+  constructor(nodeExecutor: INodeExecutor,
               commandLineArgumentsFormatter: ICommandLineArgumentsFormatter) {
     this._nodeExecutor = nodeExecutor;
     this._commandLineArgumentsFormatter = commandLineArgumentsFormatter;
