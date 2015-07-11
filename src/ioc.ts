@@ -1,12 +1,9 @@
-/// <reference path="../node_modules/typeioc/d.ts/typeioc.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
-
-import preprocessorModule = require('./preprocessor');
-import compilerModule = require('./compiler');
-import logModule = require('./util/log');
-import nodeExecutorModule = require('./node-executor');
-import nodeExecutorWithArgumentsModule = require('./node-executor-with-arguments');
-import commandLineArgumentsFormatterModule = require('./command-line-arguments-formatter');
+import {LogToken} from './util/log';
+import {IPreprocessor, Preprocessor} from './preprocessor';
+import {ICompiler, CompilerToken, CommandLineCompiler} from './compiler';
+import {NodeExecutor, NodeExecutorToken} from './node-executor';
+import {INodeExecutorWithArguments, NodeExecutorWithArguments, NodeExecutorWithArgumentsToken} from './node-executor-with-arguments';
+import {ICommandLineArgumentsFormatter, CommandLineArgumentsFormatter, CommandLineArgumentsFormatterToken} from './command-line-arguments-formatter';
 
 class DefaultCompilerOptionsToken {}
 
@@ -20,34 +17,33 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
   cb.register(DefaultCompilerOptionsToken)
     .as(() => defaultCompilerOptions);
   
-  cb.register<preprocessorModule.IPreprocessor>(preprocessorModule.Preprocessor)
+  cb.register<IPreprocessor>(Preprocessor)
     .as((c) => {
-      return new preprocessorModule.Preprocessor(
-        c.resolve(logModule.LogToken),
-        c.resolve(compilerModule.CompilerToken),
+      return new Preprocessor(
+        c.resolve(LogToken),
+        c.resolve(CompilerToken),
         c.resolve(DefaultCompilerOptionsToken)
        );
     });
 
-  cb.register<compilerModule.ICompiler>(compilerModule.CompilerToken)
+  cb.register<ICompiler>(CompilerToken)
     .as((c) => {
-      return new compilerModule.CommandLineCompiler(
-        c.resolve(nodeExecutorWithArgumentsModule.NodeExecutorWithArgumentsToken)
+      return new CommandLineCompiler(
+        c.resolve(NodeExecutorWithArgumentsToken)
       );
     });
 
-  cb.register<Ktsp.Internal.INodeExecutor>(nodeExecutorModule.NodeExecutorToken)
-    .as(() => new nodeExecutorModule.NodeExecutor());
+  cb.register<Ktsp.Internal.INodeExecutor>(NodeExecutorToken)
+    .as(() => new NodeExecutor());
     
-  cb.register<nodeExecutorWithArgumentsModule.INodeExecutorWithArguments>(nodeExecutorWithArgumentsModule.NodeExecutorWithArgumentsToken)
+  cb.register<INodeExecutorWithArguments>(NodeExecutorWithArgumentsToken)
     .as((c) => {
-      return new nodeExecutorWithArgumentsModule.NodeExecutorWithArguments(
-        c.resolve(nodeExecutorModule.NodeExecutorToken),
-        c.resolve(commandLineArgumentsFormatterModule.CommandLineArgumentsFormatterToken)
+      return new NodeExecutorWithArguments(
+        c.resolve(NodeExecutorToken),
+        c.resolve(CommandLineArgumentsFormatterToken)
       );
     });
 
-
-  cb.register<commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter>(commandLineArgumentsFormatterModule.CommandLineArgumentsFormatterToken)
-    .as(() => new commandLineArgumentsFormatterModule.CommandLineArgumentsFormatter());
+  cb.register<ICommandLineArgumentsFormatter>(CommandLineArgumentsFormatterToken)
+    .as(() => new CommandLineArgumentsFormatter());
 }

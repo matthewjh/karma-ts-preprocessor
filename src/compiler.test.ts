@@ -1,11 +1,9 @@
-/// <reference path="../definitions/nodeunit.d.ts"/>
+import * as nodeunit from 'nodeunit';
+import {ICompiler, CommandLineCompiler} from './compiler';
+import {INodeExecutorWithArguments, getMockNodeExecutorWithArguments} from './node-executor-with-arguments';
 
-import nodeunit = require('nodeunit');
-import compilerModule = require('./compiler');
-import nodeExecutorWithArgumentsModule = require('./node-executor-with-arguments');
-
-var compiler: compilerModule.ICompiler;
-var nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments;
+var compiler: ICompiler;
+var nodeExecutorWithArguments: INodeExecutorWithArguments;
 
 var args: any;
 var filePath: string;
@@ -18,9 +16,9 @@ export = {
       arg2: 'arg2-value'
     };
   
-    nodeExecutorWithArguments = nodeExecutorWithArgumentsModule.getMockNodeExecutorWithArguments();
+    nodeExecutorWithArguments = getMockNodeExecutorWithArguments();
     
-    compiler = new compilerModule.CommandLineCompiler(
+    compiler = new CommandLineCompiler(
       nodeExecutorWithArguments
     );
   

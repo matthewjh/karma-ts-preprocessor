@@ -1,10 +1,5 @@
-/// <reference path="../definitions/es6-promise.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
-
-import promiseModule = require('es6-promise');
-import logModule = require('./util/log');
-import compilerModule = require('./compiler');
-import testUtilModule = require('./util/test');
+import {getMockObjectGetter} from './util/test';
+import {ICompiler} from './compiler';
 
 export interface IPreprocessor {
 	processFile(content: string, file: Ktsp.Internal.IFile, compilerOptions?: any): Promise<void>;
@@ -12,11 +7,11 @@ export interface IPreprocessor {
 
 export class Preprocessor implements IPreprocessor {
   private _log: Ktsp.Internal.ILog;
-  private _compiler: compilerModule.ICompiler;
+  private _compiler: ICompiler;
   private _defaultCompilerOptions: any;
 
   constructor(log: Ktsp.Internal.ILog,
-				      compiler: compilerModule.ICompiler,
+				      compiler: ICompiler,
               defaultCompilerOptions: any = {}) {
     this._log = log;
     this._compiler = compiler;
@@ -56,4 +51,4 @@ export class Preprocessor implements IPreprocessor {
   }
 }
 
-export var getMockPreprocessor = testUtilModule.getMockObjectGetter<IPreprocessor>(Preprocessor);
+export var getMockPreprocessor = getMockObjectGetter<IPreprocessor>(Preprocessor);

@@ -1,4 +1,4 @@
-import testUtilModule = require('./util/test');
+import {getMockObjectGetter} from './util/test';
 
 export class CommandLineArgumentsFormatterToken {}
 
@@ -38,4 +38,4 @@ export class CommandLineArgumentsFormatter implements ICommandLineArgumentsForma
   }
 }
 
-export var getMockCommandLineArgumentsFormatter = testUtilModule.getMockObjectGetter<ICommandLineArgumentsFormatter>(CommandLineArgumentsFormatter);
+export var getMockCommandLineArgumentsFormatter = getMockObjectGetter<ICommandLineArgumentsFormatter>(CommandLineArgumentsFormatter);

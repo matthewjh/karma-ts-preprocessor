@@ -1,13 +1,11 @@
-/// <reference path="../definitions/nodeunit.d.ts"/>
+import * as nodeunit from 'nodeunit';
+import {getMockNodeExecutor} from './node-executor';
+import {INodeExecutorWithArguments, NodeExecutorWithArguments} from './node-executor-with-arguments';
+import {ICommandLineArgumentsFormatter, getMockCommandLineArgumentsFormatter} from './command-line-arguments-formatter';
 
-import nodeunit = require('nodeunit');
-import nodeExecutorWithArgumentsModule = require('./node-executor-with-arguments');
-import commandLineArgumentsFormatterModule = require('./command-line-arguments-formatter');
-import nodeExecutorModule = require('./node-executor');
-
-var nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments;
+var nodeExecutorWithArguments: INodeExecutorWithArguments;
 var nodeExecutor: Ktsp.Internal.INodeExecutor;
-var commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter;
+var commandLineArgumentsFormatter: ICommandLineArgumentsFormatter;
 
 var command: string;
 var args: any;
@@ -20,10 +18,10 @@ export = {
       arg2: 'arg2-value'
     };
   
-    nodeExecutor = nodeExecutorModule.getMockNodeExecutor();
-    commandLineArgumentsFormatter = commandLineArgumentsFormatterModule.getMockCommandLineArgumentsFormatter();
+    nodeExecutor = getMockNodeExecutor();
+    commandLineArgumentsFormatter = getMockCommandLineArgumentsFormatter();
   
-    nodeExecutorWithArguments = new nodeExecutorWithArgumentsModule.NodeExecutorWithArguments(
+    nodeExecutorWithArguments = new NodeExecutorWithArguments(
       nodeExecutor,
       commandLineArgumentsFormatter
     );

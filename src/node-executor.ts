@@ -1,9 +1,5 @@
-/// <reference path="../definitions/es6-promise.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
-/// <reference path="../definitions/node.d.ts"/>
-
-import childProcessModule = require('child_process');
-import testUtilModule = require('./util/test');
+import * as childProcess from 'child_process';
+import {getMockObjectGetter} from './util/test';
 
 export class NodeExecutorToken { }
 
@@ -11,7 +7,7 @@ export class NodeExecutor implements Ktsp.Internal.INodeExecutor {
   execute(command: string): Promise<string[]> {
     var promise = new Promise((resolve, reject) => {
       console.log(command);
-      childProcessModule.exec(`$(npm bin)/${command}`, (error, stdout, stderr) => {
+      childProcess.exec(`$(npm bin)/${command}`, (error, stdout, stderr) => {
         if (error === null) {
           resolve(stdout);
         } else {
@@ -24,4 +20,4 @@ export class NodeExecutor implements Ktsp.Internal.INodeExecutor {
   }
 }
 
-export var getMockNodeExecutor = testUtilModule.getMockObjectGetter<Ktsp.Internal.INodeExecutor>(NodeExecutor);
+export var getMockNodeExecutor = getMockObjectGetter<Ktsp.Internal.INodeExecutor>(NodeExecutor);

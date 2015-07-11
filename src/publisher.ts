@@ -1,11 +1,8 @@
-/// <reference path="../node_modules/typeioc/d.ts/typeioc.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
-
-import preprocessorModule = require('preprocessor');
-import logModule = require('./util/log');
+import {IPreprocessor} from './preprocessor';
+import {LogToken} from './util/log';
 
 interface IPreprocessorStatic {
-  new(...args: any[]): preprocessorModule.IPreprocessor;
+  new(...args: any[]): IPreprocessor;
 }
 
 /*
@@ -15,11 +12,11 @@ interface IPreprocessorStatic {
 */
 export function getPreprocessorFactory(cb: Typeioc.IContainerBuilder, preprocessorStatic: IPreprocessorStatic): any {
   var factory = (logger) => {
-    cb.register<Ktsp.Internal.ILog>(logModule.LogToken)
+    cb.register<Ktsp.Internal.ILog>(LogToken)
       .as(() => logger.create('preprocessor.typescript'));
 
     var container = cb.build();
-    var preprocessor = <preprocessorModule.IPreprocessor>container.resolve(preprocessorStatic);
+    var preprocessor = <IPreprocessor>container.resolve(preprocessorStatic);
 
     return (content, file, done) => {
       preprocessor.processFile(content, file).then((processedContents) => {

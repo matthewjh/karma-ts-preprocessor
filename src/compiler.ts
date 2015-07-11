@@ -1,6 +1,5 @@
-/// <reference path="../definitions/es6-promise.d.ts"/>
-/// <reference path="../definitions/node.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
+import {getMockObjectGetter} from './util/test';
+import {INodeExecutorWithArguments} from './node-executor-with-arguments';
 
 export class CompilerToken { }
 
@@ -8,13 +7,10 @@ export interface ICompiler {
   compile(filePath: string, args: any): Promise<string[]>;
 }
 
-import testUtilModule = require('./util/test');
-import nodeExecutorWithArgumentsModule = require('./node-executor-with-arguments');
-
 export class CommandLineCompiler implements ICompiler {
-  private _nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments;
+  private _nodeExecutorWithArguments: INodeExecutorWithArguments;
 
-  constructor(nodeExecutorWithArguments: nodeExecutorWithArgumentsModule.INodeExecutorWithArguments) {
+  constructor(nodeExecutorWithArguments: INodeExecutorWithArguments) {
     this._nodeExecutorWithArguments = nodeExecutorWithArguments;
   }
 
@@ -25,4 +21,4 @@ export class CommandLineCompiler implements ICompiler {
   }
 }
 
-export var getMockCompiler = testUtilModule.getMockObjectGetter<ICompiler>(CommandLineCompiler);
+export var getMockCompiler = getMockObjectGetter<ICompiler>(CommandLineCompiler);

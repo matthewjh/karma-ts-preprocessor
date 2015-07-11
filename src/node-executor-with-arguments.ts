@@ -1,7 +1,6 @@
 /// <reference path="../definitions/es6-promise.d.ts"/>
-
-import testUtilModule = require('./util/test');
-import commandLineArgumentsFormatterModule = require('./command-line-arguments-formatter');
+import {getMockObjectGetter} from './util/test';
+import {ICommandLineArgumentsFormatter} from './command-line-arguments-formatter';
 
 export class NodeExecutorWithArgumentsToken { }
 
@@ -11,10 +10,10 @@ export interface INodeExecutorWithArguments {
 
 export class NodeExecutorWithArguments implements INodeExecutorWithArguments {
   private _nodeExecutor: Ktsp.Internal.INodeExecutor;
-  private _commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter;
+  private _commandLineArgumentsFormatter: ICommandLineArgumentsFormatter;
 
   constructor(nodeExecutor: Ktsp.Internal.INodeExecutor,
-              commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter) {
+              commandLineArgumentsFormatter: ICommandLineArgumentsFormatter) {
     this._nodeExecutor = nodeExecutor;
     this._commandLineArgumentsFormatter = commandLineArgumentsFormatter;
   }
@@ -26,4 +25,4 @@ export class NodeExecutorWithArguments implements INodeExecutorWithArguments {
   }
 }
 
-export var getMockNodeExecutorWithArguments = testUtilModule.getMockObjectGetter<INodeExecutorWithArguments>(NodeExecutorWithArguments);
+export var getMockNodeExecutorWithArguments = getMockObjectGetter<INodeExecutorWithArguments>(NodeExecutorWithArguments);

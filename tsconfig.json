@@ -5,6 +5,14 @@
     "outDir": "built"
   },
   "files": [
+    "definitions/es6-promise.d.ts",
+    "definitions/node.d.ts",
+    "definitions/nodeunit.d.ts",
+    "definitions/ktsp.internal.d.ts",
+    "definitions/sinon.d.ts",
+    "node_modules/typeioc/d.ts/typeioc.d.ts",
+    
+    
     "src/publish.ts",
     "src/compiler.test.ts",
     "src/publish.test.ts",

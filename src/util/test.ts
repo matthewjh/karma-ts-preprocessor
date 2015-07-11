@@ -1,6 +1,5 @@
-/// <reference path="../../definitions/sinon.d.ts"/>
+import * as sinon from 'sinon';
 
-import sinon = require('sinon');
 
 interface Static<T> {
   new (...args: any[]): T;

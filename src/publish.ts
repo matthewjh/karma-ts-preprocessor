@@ -1,14 +1,11 @@
-/// <reference path="../node_modules/typeioc/d.ts/typeioc.d.ts"/>
-/// <reference path="../definitions/node.d.ts"/>
+import {createBuilder} from 'typeioc';
+import {configureContainerBuilder} from './ioc';
+import {Preprocessor} from './preprocessor';
+import {getPreprocessorFactory} from './publisher';
 
-import typeiocModule = require('typeioc');
-import preprocessorModule = require('./preprocessor');
-import publisherModule = require('./publisher');
-import iocModule = require('./ioc');
-
-var cb = typeiocModule.createBuilder();
-iocModule.configureContainerBuilder(cb);
+var cb = createBuilder();
+configureContainerBuilder(cb);
 
 export = {
-  'preprocessor:typescript': publisherModule.getPreprocessorFactory(cb, preprocessorModule.Preprocessor)
+  'preprocessor:typescript': getPreprocessorFactory(cb, Preprocessor)
 };

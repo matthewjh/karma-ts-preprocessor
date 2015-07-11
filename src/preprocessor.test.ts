@@ -1,15 +1,11 @@
-/// <reference path="../definitions/sinon.d.ts"/>
-/// <reference path="../definitions/nodeunit.d.ts"/>
-/// <reference path="../definitions/ktsp.internal.d.ts"/>
+import * as nodeunit from 'nodeunit';
+import * as sinon from 'sinon';
+import {IPreprocessor, Preprocessor} from './preprocessor';
+import {ICompiler, getMockCompiler} from './compiler';
+import {getLogMock} from './util/log';
 
-import sinon = require('sinon');
-import nodeunit = require('nodeunit');
-import preprocessorModule = require('./preprocessor');
-import compilerModule = require('./compiler');
-import logModule = require('./util/log');
-
-var preprocessor: preprocessorModule.IPreprocessor;
-var mockCompiler: compilerModule.ICompiler;
+var preprocessor: IPreprocessor;
+var mockCompiler: ICompiler;
 var mockLog: Ktsp.Internal.ILog;
 
 var compilerCompilePromise: Promise<string[]>;
@@ -20,8 +16,8 @@ var defaultCompilerOptions: any;
 
 export = {
   setUp: function(done: nodeunit.ICallbackFunction) {
-    mockLog = logModule.getLogMock();
-    mockCompiler = compilerModule.getMockCompiler();
+    mockLog = getLogMock();
+    mockCompiler = getMockCompiler();
   
     file = {
       path: 'some-file-path'
@@ -33,7 +29,7 @@ export = {
   
     contents = 'some-contents';
   
-    preprocessor = new preprocessorModule.Preprocessor(
+    preprocessor = new Preprocessor(
       mockLog,
       mockCompiler,
       defaultCompilerOptions

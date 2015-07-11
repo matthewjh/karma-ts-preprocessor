@@ -1,13 +1,11 @@
-/// <reference path="../definitions/nodeunit.d.ts"/>
+import * as nodeunit from 'nodeunit';
+import {ICommandLineArgumentsFormatter, CommandLineArgumentsFormatter} from './command-line-arguments-formatter';
 
-import nodeunit = require('nodeunit');
-import commandLineArgumentsFormatterModule = require('./command-line-arguments-formatter');
-
-var commandLineArgumentsFormatter: commandLineArgumentsFormatterModule.ICommandLineArgumentsFormatter;
+var commandLineArgumentsFormatter: ICommandLineArgumentsFormatter;
 
 export = {
   setUp: function(done: nodeunit.ICallbackFunction) {
-    commandLineArgumentsFormatter = new commandLineArgumentsFormatterModule.CommandLineArgumentsFormatter();
+    commandLineArgumentsFormatter = new CommandLineArgumentsFormatter();
     done();
   },
   

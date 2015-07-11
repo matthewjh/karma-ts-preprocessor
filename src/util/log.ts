@@ -1,6 +1,4 @@
-/// <reference path="../../definitions/ktsp.internal.d.ts"/>
-
-import testUtilModule = require('./test');
+import {getMockObjectGetter} from './test';
 
 export class LogToken { }
 
@@ -32,4 +30,4 @@ export class TestLog implements Ktsp.Internal.ILog {
   }
 }
 
-export var getLogMock = testUtilModule.getMockObjectGetter<Ktsp.Internal.ILog>(TestLog);
+export var getLogMock = getMockObjectGetter<Ktsp.Internal.ILog>(TestLog);
