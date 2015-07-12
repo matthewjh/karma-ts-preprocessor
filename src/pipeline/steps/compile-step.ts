@@ -1,10 +1,15 @@
- import {IPreprocessorInput, IPreprocessorOutput, IPreprocessorStep} from './facade';
- 
- export class CompileStep implements IPreprocessorStep {
-   constructor() {}
-   
-   execute(input: IPreprocessorInput, output: IPreprocessorOutput): Promise<IPreprocessorOutput> {
-     return null;
-   }
- }
+import {IPreprocessorInput, IPreprocessorOutput, IPreprocessorStep} from './facade';
+import {ICompiler} from '../../compiler';
+
+export class CompileStep implements IPreprocessorStep {
+  private _compiler: ICompiler;
+  
+  constructor(compiler: ICompiler) {
+    this._compiler = compiler;
+  }
+
+  execute(input: IPreprocessorInput, output: IPreprocessorOutput): Promise<IPreprocessorOutput> {
+    return this._compiler.compile(input.filePath, input.typescriptOptions);
+  }
+}
  

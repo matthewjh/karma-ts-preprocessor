@@ -3,7 +3,7 @@
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-interface Function {
+interface Function extends Sinon.SinonStub {
     withArgs(...args: any[]): Sinon.SinonStub;    
 }
 

@@ -6,8 +6,8 @@ export interface IPreprocessorInput {
 }
 
 export interface IPreprocessorOutput {
-  filePath: string;
-  fileContents: string;
+  filePath?: string;
+  fileContents?: string;
 }
 
 export interface IPreprocessorStep extends IStep<IPreprocessorInput, IPreprocessorOutput> {}
