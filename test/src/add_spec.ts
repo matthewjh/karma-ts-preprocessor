@@ -1,3 +1,5 @@
+/// <reference path="../definitions/jasmine.d.ts"/>
+
 import {add} from 'add';
 
 describe('add', () => {

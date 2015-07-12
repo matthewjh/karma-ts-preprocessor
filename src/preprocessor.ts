@@ -10,7 +10,7 @@ export interface IPreprocessor {
 
 export interface IPreprocessorResult {
   outputPath: string;
-  output: string
+  output: string;
 }
 
 export class Preprocessor implements IPreprocessor {
@@ -47,7 +47,10 @@ export class Preprocessor implements IPreprocessor {
       });
       
       return this._fileReader.readFile(preprocessedFilePath).then((fileContents) => {
-        this._log.error(fileContents);
+        return {
+          outputPath: preprocessedFilePath,
+          output: fileContents
+        };
       });
     }, (error) => {
       this._log.error(error);

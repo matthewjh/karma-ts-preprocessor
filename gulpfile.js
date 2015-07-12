@@ -28,6 +28,8 @@ gulp.task('build', ['clean-build-folder'], function (done) {
 gulp.task('unit', ['build'], function () {
   var nodeunit = require('gulp-nodeunit');
 
-  gulp.src('built/**/*.test.js')
+  gulp.src([
+    'built/**/*.test.js'
+  ])
     .pipe(nodeunit());
 })

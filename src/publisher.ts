@@ -19,8 +19,8 @@ export function getPreprocessorFactory(cb: Typeioc.IContainerBuilder, preprocess
     var preprocessor = <IPreprocessor>container.resolve(preprocessorStatic);
 
     return (content, file, done) => {
-      preprocessor.processFile(content, file).then((processedContents) => {
-        done(processedContents);
+      preprocessor.processFile(content, file).then((result) => {
+        done(result.output);
       }, (error) => {
         var logger: ILog = container.resolve(LogToken);
         logger.error(error);

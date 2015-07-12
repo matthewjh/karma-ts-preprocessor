@@ -1,5 +1,5 @@
 var allTestFiles = [];
-var TEST_REGEXP = /(spec|test)\.js$/i;
+var TEST_REGEXP = /(spec|test)\.ts$/i;
 
 Object.keys(window.__karma__.files).forEach(function(file) {
   if (TEST_REGEXP.test(file)) {
