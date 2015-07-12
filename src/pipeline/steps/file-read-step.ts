@@ -2,6 +2,7 @@ import {IPreprocessorInput, IPreprocessorOutput, IPreprocessorStep} from './faca
 import {IFileReader} from '../../file-reader';
 import {IPathResolver} from '../../path-resolver';
 
+export class FileReadStepToken {}
 
 export class FileReadStep implements IPreprocessorStep {
   private _fileReader: IFileReader;

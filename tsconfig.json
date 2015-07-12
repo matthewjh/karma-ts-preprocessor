@@ -17,7 +17,6 @@
     "src/publish.ts",
     "src/compiler.test.ts",
     "src/publish.test.ts",
-    "src/preprocessor.test.ts",
     "src/command-line-arguments-formatter.test.ts",
     "src/node-executor-with-arguments.test.ts",
     "src/pipeline/step-pipeline.test.ts",

@@ -1,87 +1,37 @@
-import {getMockObjectGetter} from './util/test';
-import {IPathResolver} from './path-resolver';
-import {IFileReader} from './file-reader';
-import {ICompiler} from './compiler';
-import {ILog} from './util/log';
+import {IPreprocessorStep, IPreprocessorInput, IPreprocessorOutput} from './pipeline/steps/facade';
 
 export interface IPreprocessor {
-	processFile(content: string, file: Ktsp.Internal.IFile, compilerOptions?: any): Promise<IPreprocessorResult>;
+  preprocessFile(content: string, file: Ktsp.Internal.IFile, compilerOptions?: any): Promise<string>;
 }
 
-export interface IPreprocessorResult {
-  outputPath: string;
-  output: string;
-}
+export class PreprocessorToken {}
 
 export class Preprocessor implements IPreprocessor {
-  private _log: ILog;
-  private _pathResolver: IPathResolver;
-  private _fileReader: IFileReader;
-  private _compiler: ICompiler;
-  private _defaultCompilerOptions: any;
+  private _preprocessorStep: IPreprocessorStep;
+  private _typescriptOptions: any; 
   
-  constructor(log: ILog,
-              pathResolver: IPathResolver,
-              fileReader: IFileReader,
-				      compiler: ICompiler,
-              defaultCompilerOptions: any = {}) {
-    this._log = log;
-    this._pathResolver = pathResolver;
-    this._fileReader = fileReader;
-    this._compiler = compiler;
-    this._defaultCompilerOptions = defaultCompilerOptions;
+  constructor(preprocessorStep: IPreprocessorStep, typescriptOptions: any) {
+    this._preprocessorStep = preprocessorStep;
+    this._typescriptOptions = typescriptOptions;
   }
-
-  processFile(content: string, 
-              file: Ktsp.Internal.IFile, 
-              compilerOptions: any = {}): Promise<IPreprocessorResult> { 
-    var options = this._mergeWithDefaultOptions(compilerOptions);
+  
+  preprocessFile(content: string, file: Ktsp.Internal.IFile, compilerOptions?: any): Promise<string> {
+    var input = this._getStepInput(file.path, this._typescriptOptions);
+    var output = this._getInitialStepOutput();
     
-    this._log.info(`preprocessing: ${file} ---\n ${content}`);
-
-    return this._compiler.compile(file.path, options).then((logs) => {
-      var preprocessedFilePath = this._getPreprocessedFilePath(file.path, options.outDir);
-      this._log.warn(preprocessedFilePath);
-      logs.forEach((log) => {
-        this._log.info(log);
-      });
-      
-      return this._fileReader.readFile(preprocessedFilePath).then((fileContents) => {
-        return {
-          outputPath: preprocessedFilePath,
-          output: fileContents
-        };
-      });
-    }, (error) => {
-      this._log.error(error);
-      
-      return Promise.reject(error);
+    return this._preprocessorStep.execute(input, output).then((output) => {
+      return output.fileContents;
     });
   }
   
-  private _getPreprocessedFilePath(originalFilePath: string, outputDirectoryPath: string) {
-    var relativePathToOutputDirectory = this._pathResolver.getRelativePath('./', outputDirectoryPath);
-    var relativePathToOriginalFilePath = this._pathResolver.getRelativePath('./src', originalFilePath);
-    var relativePreprocessedFilePath = this._pathResolver.getJoinedPath(relativePathToOutputDirectory, relativePathToOriginalFilePath);
-    var absolutePreprocessedFilePath = this._pathResolver.getAbsolutePath('./', relativePreprocessedFilePath)
-                                            .replace(/\.ts$/, '.js');
-    
-    return absolutePreprocessedFilePath;
+  private _getStepInput(filePath: string, compilerOptions: any): IPreprocessorInput {
+    return {
+      filePath: filePath,
+      typescriptOptions: compilerOptions
+    };
   }
   
-  private _mergeWithDefaultOptions(customOptions: any): any {
-     var options = {};
-     
-     Object.keys(this._defaultCompilerOptions).forEach((k) => {
-       options[k] = this._defaultCompilerOptions[k];
-     });
-     
-     Object.keys(customOptions).forEach((k) => {
-       options[k] = customOptions[k];
-     });
-     
-     return options;
+  private _getInitialStepOutput(): IPreprocessorOutput {
+    return {};
   }
 }
-
-export var getMockPreprocessor = getMockObjectGetter<IPreprocessor>(Preprocessor);

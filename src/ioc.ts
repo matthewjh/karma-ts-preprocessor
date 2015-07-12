@@ -1,14 +1,17 @@
 import {LogToken} from './util/log';
-import {IPreprocessor, Preprocessor} from './preprocessor';
+import {IPreprocessor, Preprocessor, PreprocessorToken} from './preprocessor';
 import {ICompiler, CompilerToken, CommandLineCompiler} from './compiler';
 import {IPathResolver, PathResolverToken, NodePathResolver} from './path-resolver';
 import {IFileReader, FileReaderToken, NodeFileReader} from './file-reader';
 import {INodeExecutor, NodeExecutor, NodeExecutorToken} from './node-executor';
 import {INodeExecutorWithArguments, NodeExecutorWithArguments, NodeExecutorWithArgumentsToken} from './node-executor-with-arguments';
 import {ICommandLineArgumentsFormatter, CommandLineArgumentsFormatter, CommandLineArgumentsFormatterToken} from './command-line-arguments-formatter';
+import {StepPipeline} from './pipeline/facade';
+import {CompileStep, FileReadStep, IPreprocessorStep, CompileStepToken, FileReadStepToken} from './pipeline/steps/facade';
 
 class GlobalToken {}
 class DefaultCompilerOptionsToken {}
+class PreprocessStepToken {}
 
 var defaultCompilerOptions = {
   outDir: 'built',
@@ -25,16 +28,28 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
   cb.register(DefaultCompilerOptionsToken)
     .as(() => defaultCompilerOptions);
   
-  cb.register<IPreprocessor>(Preprocessor)
-    .as((c) => {
-      return new Preprocessor(
-        c.resolve(LogToken),
-        c.resolve(PathResolverToken),
-        c.resolve(FileReaderToken),
-        c.resolve(CompilerToken),
+  cb.register<IPreprocessorStep>(PreprocessStepToken)
+    .as((c) => new StepPipeline([
+      c.resolve(CompileStepToken),
+      c.resolve(FileReadStepToken)
+    ]));
+    
+  cb.register<IPreprocessorStep>(CompileStepToken)
+    .as((c) => new CompileStep(
+      c.resolve(CompilerToken)
+    ));
+
+  cb.register<IPreprocessorStep>(FileReadStepToken)
+    .as((c) => new FileReadStep(
+      c.resolve(FileReaderToken),
+      c.resolve(PathResolverToken)
+    ));
+  
+  cb.register<IPreprocessor>(PreprocessorToken)
+    .as((c) => new Preprocessor(
+        c.resolve(PreprocessStepToken),
         c.resolve(DefaultCompilerOptionsToken)
-       );
-    });
+    ));
     
   cb.register<IPathResolver>(PathResolverToken)
     .as((c) => new NodePathResolver());

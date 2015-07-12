@@ -1,6 +1,8 @@
 import {IPreprocessorInput, IPreprocessorOutput, IPreprocessorStep} from './facade';
 import {ICompiler} from '../../compiler';
 
+export class CompileStepToken {}
+
 export class CompileStep implements IPreprocessorStep {
   private _compiler: ICompiler;
   
