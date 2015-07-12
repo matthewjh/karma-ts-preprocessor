@@ -65,7 +65,6 @@ export class Preprocessor implements IPreprocessor {
     var relativePreprocessedFilePath = this._pathResolver.getJoinedPath(relativePathToOutputDirectory, relativePathToOriginalFilePath);
     var absolutePreprocessedFilePath = this._pathResolver.getAbsolutePath('./', relativePreprocessedFilePath)
                                             .replace(/\.ts$/, '.js');
-
     
     return absolutePreprocessedFilePath;
   }

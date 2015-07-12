@@ -1,6 +1,5 @@
 import * as nodeunit from 'nodeunit';
-import {IStep} from './step';
-import {StepPipeline} from './step-pipeline';
+import {IStep, StepPipeline} from './facade';
 
 var stepPipeline: StepPipeline<number, number>;
 
