@@ -1,6 +1,6 @@
 /// <reference path="../definitions/jasmine.d.ts"/>
 
-import {add} from 'add';
+import {add} from './add';
 
 describe('add', () => {
 	it('should correctly add 2 and 3', () => {

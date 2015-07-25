@@ -21,6 +21,7 @@
     "src/node-executor-with-arguments.test.ts",
     "src/pipeline/step-pipeline.test.ts",
     "src/pipeline/steps/compile-step.test.ts",
-    "src/pipeline/steps/file-read-step.test.ts"
+    "src/pipeline/steps/file-read-step.test.ts",
+    "src/pipeline/steps/import-patch-step.test.ts"
   ]
 }

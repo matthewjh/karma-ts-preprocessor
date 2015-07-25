@@ -11,6 +11,7 @@
   "devDependencies": {
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.36",
+    "karma-chrome-launcher": "^0.2.0",
     "karma-jasmine": "^0.3.5",
     "karma-requirejs": "^0.2.2",
     "requirejs": "^2.1.18"

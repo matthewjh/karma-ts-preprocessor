@@ -7,7 +7,7 @@ import {INodeExecutor, NodeExecutor, NodeExecutorToken} from './node-executor';
 import {INodeExecutorWithArguments, NodeExecutorWithArguments, NodeExecutorWithArgumentsToken} from './node-executor-with-arguments';
 import {ICommandLineArgumentsFormatter, CommandLineArgumentsFormatter, CommandLineArgumentsFormatterToken} from './command-line-arguments-formatter';
 import {StepPipeline} from './pipeline/facade';
-import {CompileStep, FileReadStep, IPreprocessorStep, CompileStepToken, FileReadStepToken} from './pipeline/steps/facade';
+import {CompileStep, FileReadStep, IPreprocessorStep, CompileStepToken, FileReadStepToken, ImportPatchStep, ImportPatchStepToken} from './pipeline/steps/facade';
 
 class GlobalToken {}
 class DefaultCompilerOptionsToken {}
@@ -31,13 +31,17 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
   cb.register<IPreprocessorStep>(PreprocessStepToken)
     .as((c) => new StepPipeline([
       c.resolve(CompileStepToken),
-      c.resolve(FileReadStepToken)
+      c.resolve(FileReadStepToken),
+      c.resolve(ImportPatchStepToken)
     ]));
     
   cb.register<IPreprocessorStep>(CompileStepToken)
     .as((c) => new CompileStep(
       c.resolve(CompilerToken)
     ));
+    
+  cb.register<IPreprocessorStep>(ImportPatchStepToken)
+    .as((c) => new ImportPatchStep());
 
   cb.register<IPreprocessorStep>(FileReadStepToken)
     .as((c) => new FileReadStep(
