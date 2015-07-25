@@ -12,7 +12,7 @@ export class ImportPatchStep implements IPreprocessorStep {
       fileContents.split('\n')
         .map((line) => {
           if (line.indexOf('require') !== -1 || line.indexOf('define') !== -1) {
-            return line.replace(/'(\.\/.*?)'/gi, `'$1.ts'`);
+            return line.replace(/("|')(\.\/.*?)("|')/gi, `$1$2.ts$3`);
           } else {
             return line;
           }

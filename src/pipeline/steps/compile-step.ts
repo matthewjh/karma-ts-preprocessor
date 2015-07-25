@@ -11,7 +11,9 @@ export class CompileStep implements IPreprocessorStep {
   }
 
   execute(input: IPreprocessorInput, output: IPreprocessorOutput): Promise<IPreprocessorOutput> {
-    return this._compiler.compile(input.filePath, input.typescriptOptions);
+    return this._compiler.compile(input.filePath, input.typescriptOptions).then(() => {
+      return output;
+    });;
   }
 }
  

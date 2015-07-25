@@ -21,6 +21,7 @@ export = {
   
   'execute': {
     'it should compile the correct filepath with the correct options': function(test: nodeunit.Test) {
+      mockCompiler.compile.returns(Promise.resolve([]));
       compileStep.execute(input, output);
       
       test.ok(mockCompiler.compile.withArgs(input.filePath, input.typescriptOptions).called);
