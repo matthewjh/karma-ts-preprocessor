@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/matthewjh/karma-ts-preprocessor#readme",
   "devDependencies": {
+    "del": "^1.2.0",
     "es6-promise": "^2.3.0",
     "gulp": "^3.9.0",
     "gulp-nodeunit": "0.0.5",

@@ -11,6 +11,7 @@
     "definitions/nodeunit.d.ts",
     "definitions/ktsp.internal.d.ts",
     "definitions/sinon.d.ts",
+    "definitions/del.d.ts",
     "node_modules/typeioc/d.ts/typeioc.d.ts",
     
     

@@ -7,7 +7,17 @@ import {INodeExecutor, NodeExecutor, NodeExecutorToken} from './node-executor';
 import {INodeExecutorWithArguments, NodeExecutorWithArguments, NodeExecutorWithArgumentsToken} from './node-executor-with-arguments';
 import {ICommandLineArgumentsFormatter, CommandLineArgumentsFormatter, CommandLineArgumentsFormatterToken} from './command-line-arguments-formatter';
 import {StepPipeline} from './pipeline/facade';
-import {CompileStep, FileReadStep, IPreprocessorStep, CompileStepToken, FileReadStepToken, ImportPatchStep, ImportPatchStepToken} from './pipeline/steps/facade';
+import {
+  CompileStep, 
+  FileReadStep, 
+  IPreprocessorStep, 
+  CompileStepToken, 
+  FileReadStepToken, 
+  ImportPatchStep, 
+  ImportPatchStepToken, 
+  OutputDirectoryDeleteStep,
+  OutputDirectoryDeleteStepToken
+} from './pipeline/steps/facade';
 
 class GlobalToken {}
 class DefaultCompilerOptionsToken {}
@@ -32,7 +42,8 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
     .as((c) => new StepPipeline([
       c.resolve(CompileStepToken),
       c.resolve(FileReadStepToken),
-      c.resolve(ImportPatchStepToken)
+      c.resolve(ImportPatchStepToken),
+      c.resolve(OutputDirectoryDeleteStepToken)
     ]));
     
   cb.register<IPreprocessorStep>(CompileStepToken)
@@ -42,6 +53,9 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
     
   cb.register<IPreprocessorStep>(ImportPatchStepToken)
     .as((c) => new ImportPatchStep());
+    
+  cb.register<IPreprocessorStep>(OutputDirectoryDeleteStepToken)
+    .as((c) => new OutputDirectoryDeleteStep());
 
   cb.register<IPreprocessorStep>(FileReadStepToken)
     .as((c) => new FileReadStep(
@@ -62,22 +76,18 @@ export function configureContainerBuilder(cb: Typeioc.IContainerBuilder): void {
     .as((c) => new NodeFileReader());
 
   cb.register<ICompiler>(CompilerToken)
-    .as((c) => {
-      return new CommandLineCompiler(
+    .as((c) => new CommandLineCompiler(
         c.resolve(NodeExecutorWithArgumentsToken)
-      );
-    });
+      ));
 
   cb.register<INodeExecutor>(NodeExecutorToken)
     .as(() => new NodeExecutor());
     
   cb.register<INodeExecutorWithArguments>(NodeExecutorWithArgumentsToken)
-    .as((c) => {
-      return new NodeExecutorWithArguments(
+    .as((c) => new NodeExecutorWithArguments(
         c.resolve(NodeExecutorToken),
         c.resolve(CommandLineArgumentsFormatterToken)
-      );
-    });
+      ));
 
   cb.register<ICommandLineArgumentsFormatter>(CommandLineArgumentsFormatterToken)
     .as(() => new CommandLineArgumentsFormatter());
